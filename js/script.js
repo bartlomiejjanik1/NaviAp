@@ -43,6 +43,12 @@ function loadData() {
     });
         //Wikipedia AJAX, zapytanie do wikipedi o wpisywane miasto
     var wikiUrl= 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=json&callback=wikiCallback';
+
+    //error handling w jasonp nie jest zaimplementowany, trzeba napisac funkcje z timeoutem 8000 milisekund
+    var wikiRequestTimeout = setTimeout(function(){
+        $wikiElem.text("failed to get ikipedia resources");
+    }, 8000);
+
     //jQuery ajax funkcja
     $.ajax({
         //do klucza url wrzucamy zmienną wikiUrl
@@ -58,8 +64,8 @@ function loadData() {
                 var url = 'http://en.wikipedia.org/wiki/' + articleStr;
                 $wikiElem.append('<li><a href=" ' + url + '">'+ 
                 articleStr + '</a></li>');
-            }
-
+            };
+            clearTimeout(wikiRequestTimeout);
         }
     });
 
