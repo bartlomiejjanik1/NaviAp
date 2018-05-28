@@ -39,7 +39,7 @@ function loadData() {
             //Teraz dorabiamy obśługe błędu, dodajemy .error (chaining metods) do metody getJson error function()
             //Odpali się .error jesli cos pójdzie nie tak z funkcji getJson
     }).error(function(e){
-
+            $nytHeaderElem.text('Cos poszlo nie tak. Nie mozna zaladować storny - obsluga bledu działa');
     });
 
 
