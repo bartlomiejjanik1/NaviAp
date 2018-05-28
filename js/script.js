@@ -14,7 +14,7 @@ function loadData() {
     // load streetview
     var streetStr = $('#street').val();
     var cityStr = $('#city').val();
-    var  address = streetStr +  ', ' + cityStr;
+    var address = streetStr +  ', ' + cityStr;
 
     $greeting.text('Więc, chcesz mieszkać w ' + address + '?');
     
@@ -41,9 +41,28 @@ function loadData() {
     }).error(function(e){
             $nytHeaderElem.text('Cos poszlo nie tak. Nie mozna zaladować storny - obsluga bledu działa');
     });
-
-
     return false;
 };
+    //Wikipedia AJAX, zapytanie do wikipedi o wpisywane miasto
+    var wikiUrl= 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + ' &format=json&callback=wikiCallback';
+    //jQuery ajax funkcja
+    $.ajax({
+        //do klucza url wrzucamy zmienną wikiUrl
+        url: wikiUrl,
+        //jsonp: "callback",
+        dataType: "jsonp",
+        //teraz funkcja succes, jesli wikipedia zwroci prawidłowo dane to funkcja odpowienio je przetworzy
+        success: function (response) {
+            var articleList = response[1];
+            
+            for (var i = 0; i < articleList.length; i++) {
+                articleStr = articleList[i];
+                var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+                $wikiElem.append('<li><a href=" ' + url + '">'+ 
+                articleStr + '</a></li>');
+            };
+
+        }
+    });
 
 $('#form-container').submit(loadData);
