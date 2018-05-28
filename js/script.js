@@ -41,10 +41,8 @@ function loadData() {
     }).error(function(e){
             $nytHeaderElem.text('Cos poszlo nie tak. Nie mozna zaladować storny - obsluga bledu działa');
     });
-    return false;
-};
-    //Wikipedia AJAX, zapytanie do wikipedi o wpisywane miasto
-    var wikiUrl= 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + ' &format=json&callback=wikiCallback';
+        //Wikipedia AJAX, zapytanie do wikipedi o wpisywane miasto
+    var wikiUrl= 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + cityStr + '&format=json&callback=wikiCallback';
     //jQuery ajax funkcja
     $.ajax({
         //do klucza url wrzucamy zmienną wikiUrl
@@ -60,9 +58,14 @@ function loadData() {
                 var url = 'http://en.wikipedia.org/wiki/' + articleStr;
                 $wikiElem.append('<li><a href=" ' + url + '">'+ 
                 articleStr + '</a></li>');
-            };
+            }
 
         }
     });
+
+
+    return false;
+};
+    
 
 $('#form-container').submit(loadData);
