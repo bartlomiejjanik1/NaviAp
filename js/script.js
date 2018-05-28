@@ -26,7 +26,16 @@ function loadData() {
         
         
     $.getJSON(nytimesUrl, function (data) {
-        console.log(data);
+        
+        $nytHeaderElem.text('New York Times Articles About' + cityStr);
+        //zbieramy z odpowiedzi artykuły i wrzucamy je do obiektu articles, który pozniej iterujemy i wrzucamy metoda .append na storne w liscie <li>
+        articles = data.response.docs;
+        for (var i = 0; i < articles.length; i++) {
+            var article = articles[i];
+            $nytElem.append('<li class="article">' + '<a href=" '+article.web_url+'">'+article.headline.main+ '</a>'+
+                                    '<p>' + article.snippet + '</p>'+ '</li>');
+        };
+
     });
 
 
